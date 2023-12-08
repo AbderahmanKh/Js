@@ -6,7 +6,7 @@ canvas.height = 576
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-const gravity = 0.2
+const gravity = 0.65
 
 class Sprite {
     constructor({position, velocity}) {
@@ -16,7 +16,11 @@ class Sprite {
     }
 
     draw() {
-        c.fillStyle = 'red'
+        if (this === chirir) {
+            c.fillStyle = 'yellow'; // Set color to yellow for chirir
+        } else {
+            c.fillStyle = 'red'; // Default color for other sprites
+        }
         c.fillRect(this.position.x, this.position.y, 50, this.height)
     }
 
@@ -64,7 +68,11 @@ const keys = {
     },
     d : {
         pressed : false
-    }
+    },
+
+    ArrowLeft: { pressed: false },
+
+    ArrowRight: { pressed: false },
 }
 
 let lastkey
@@ -77,18 +85,20 @@ function Animation() {
     chirir.update()
 
     player.velocity.x = 0
+    chirir.velocity.x = 0
+    
 
     // player mvt
     if (keys.a.pressed && lastkey === 'a') {
-        player.velocity.x = -1
+        player.velocity.x = -5
     } else if (keys.d.pressed && lastkey === 'd') {
-        player.velocity.x = 1
+        player.velocity.x = 5
     }
     // chirir mvt hehe
     if (keys.ArrowLeft.pressed && chirir.lastkey === 'ArrowLeft') {
-        chirir.velocity.x = -1
+        chirir.velocity.x = -5
     } else if (keys.ArrowRight.pressed && chirir.lastkey === 'ArrowRight') {
-        chirir.velocity.x = 1
+        chirir.velocity.x = 5
     }
 }
 Animation()
@@ -104,7 +114,7 @@ window.addEventListener('keydown', (event) => {
             lastkey = 'a'
             break
         case 'w' :
-            player.velocity.y = -10
+            player.velocity.y = -20
             break
         
         case 'ArrowRight' :
@@ -112,11 +122,11 @@ window.addEventListener('keydown', (event) => {
             chirir.lastkey = 'ArrowRight'
             break
         case 'ArrowLeft' :
-            keys.Arrowleft.pressed = true
-            chirir.lastkey = 'Arrowleft'
+            keys.ArrowLeft.pressed = true
+            chirir.lastkey = 'ArrowLeft'
             break
         case 'ArrowUp' :
-            chirir.velocitys.y = -10
+            chirir.velocity.y = -20
             break
 
     }
