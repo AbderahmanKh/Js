@@ -9,10 +9,21 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.65
 
 class Sprite {
-    constructor({position, velocity}) {
+    constructor({position, velocity, offset}) {
         this.position = position
         this.velocity = velocity
+        this.width = 50
         this.height = 150
+        this.atackbox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            } ,
+            offset,
+            width: 100,
+            height: 50
+        }
+        this.isAttacking
     }
 
     draw() {
@@ -21,11 +32,26 @@ class Sprite {
         } else {
             c.fillStyle = 'red'; // Default color for other sprites
         }
-        c.fillRect(this.position.x, this.position.y, 50, this.height)
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // Atacking box 
+      //  if(this.isAttacking){
+        c.fillStyle = 'green'
+        c.fillRect(
+            this.atackbox.position.x,
+            this.atackbox.position.y,
+            this.atackbox.width,
+            this.atackbox.height
+        )
+    //  }
     }
+
+    
 
     update() {
         this.draw()
+        this.atackbox.position.x =this.position.x + this.atackbox.offset.x
+        this.atackbox.position.y =this.position.y
+
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
         
@@ -33,6 +59,13 @@ class Sprite {
         if (this.position.y + this.height + this.velocity.y >= canvas.height){
             this.velocity.y = 0
         } else this.velocity.y += gravity
+    }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() =>{
+            this.isAttacking = false
+        }, 100)
     }
 
 }
@@ -44,6 +77,10 @@ const player = new Sprite({
 },
 velocity:{
     x: 0, 
+    y: 0
+},
+offset: {
+    x: 0,
     y: 0
 }
 })
@@ -57,6 +94,10 @@ const chirir = new Sprite({
 velocity:{
     x: 0, 
     y: 0 
+},
+offset: {
+    x: -50,
+    y: 0
 }
 })
 
@@ -77,10 +118,20 @@ const keys = {
 
 let lastkey
 
+function rectangularCollision ({ rectangle1, rectangle2}) {
+    return (
+        rectangle1.atackbox.position.x + rectangle1.atackbox.width >= rectangle2.position.x && 
+        rectangle1.atackbox.position.x <= rectangle2.position.x + rectangle2.width && 
+        rectangle1.atackbox.position.y + rectangle1.atackbox.height >= rectangle2.position.y && 
+        rectangle1.atackbox.position.y <= rectangle2.position.y + rectangle2.height
+    );
+    
+} 
+
 function Animation() {
     window.requestAnimationFrame(Animation)
     c.fillStyle = 'black'
-    c.fillRect(0, 0, canvas.width, canvas .height)
+    c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     chirir.update()
 
@@ -94,13 +145,35 @@ function Animation() {
     } else if (keys.d.pressed && lastkey === 'd') {
         player.velocity.x = 5
     }
+
+
     // chirir mvt hehe
     if (keys.ArrowLeft.pressed && chirir.lastkey === 'ArrowLeft') {
         chirir.velocity.x = -5
     } else if (keys.ArrowRight.pressed && chirir.lastkey === 'ArrowRight') {
         chirir.velocity.x = 5
     }
+
+    // coliision detection 
+    if (rectangularCollision({
+        rectangle1 : player,
+        rectangle2 : chirir
+    })
+        && player.isAttacking ) {
+            player.isAttacking = false
+            console.log('DRB DINMO HH')
+        }
 }
+if (rectangularCollision({
+    rectangle1 : chirir,
+    rectangle2 : player
+}) && chirir.isAttacking ) {
+
+        chirir.isAttacking = false
+        console.log('nari chirir kaydrbek')
+
+    }
+
 Animation()
 
 window.addEventListener('keydown', (event) => {
@@ -116,6 +189,9 @@ window.addEventListener('keydown', (event) => {
         case 'w' :
             player.velocity.y = -20
             break
+        case 'f' :
+            player.attack()
+            break
         
         case 'ArrowRight' :
             keys.ArrowRight.pressed = true
@@ -127,6 +203,9 @@ window.addEventListener('keydown', (event) => {
             break
         case 'ArrowUp' :
             chirir.velocity.y = -20
+            break
+        case 'l' :
+            chirir.isAttacking = true
             break
 
     }
