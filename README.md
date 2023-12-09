@@ -4,3 +4,5 @@ I'm still learning JavaScript so I may follow some youtube steps, but of course 
 for contact add me on discord : tikchbiiila
 
 UPDATE : I start making characters mooving :D yeeeyy 
+
+Update ( 12-09-2023 ) : They are fighting ehehe, still got some problem but I will fix it later, I will add health bar later Inchaalah.
