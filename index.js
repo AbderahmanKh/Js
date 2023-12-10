@@ -34,7 +34,7 @@ class Sprite {
         }
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
         // Atacking box 
-      //  if(this.isAttacking){
+      if(this.isAttacking){
         c.fillStyle = 'green'
         c.fillRect(
             this.atackbox.position.x,
@@ -42,7 +42,7 @@ class Sprite {
             this.atackbox.width,
             this.atackbox.height
         )
-    //  }
+     }
     }
 
     
@@ -161,18 +161,19 @@ function Animation() {
     })
         && player.isAttacking ) {
             player.isAttacking = false
-            console.log('DRB DINMO HH')
+            console.log('Player is attacking')
         }
+
+        if (rectangularCollision({
+            rectangle1 : chirir,
+            rectangle2 : player
+        })
+            && chirir.isAttacking ) {
+                chirir.isAttacking = false
+                console.log('Enemy is attacking')
+            }
 }
-if (rectangularCollision({
-    rectangle1 : chirir,
-    rectangle2 : player
-}) && chirir.isAttacking ) {
 
-        chirir.isAttacking = false
-        console.log('nari chirir kaydrbek')
-
-    }
 
 Animation()
 
