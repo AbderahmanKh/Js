@@ -206,7 +206,7 @@ window.addEventListener('keydown', (event) => {
             chirir.velocity.y = -20
             break
         case 'l' :
-            chirir.isAttacking = true
+            chirir.attack()
             break
 
     }
