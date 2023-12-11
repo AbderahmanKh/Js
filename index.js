@@ -24,6 +24,7 @@ class Sprite {
             height: 50
         }
         this.isAttacking
+        this.health = 100
     }
 
     draw() {
@@ -161,6 +162,8 @@ function Animation() {
     })
         && player.isAttacking ) {
             player.isAttacking = false
+            chirir.health -= 10
+            document.querySelector('#enemyhealth').style.width = chirir.health + '%'
             console.log('Player is attacking')
         }
 
@@ -170,6 +173,8 @@ function Animation() {
         })
             && chirir.isAttacking ) {
                 chirir.isAttacking = false
+                player.health -= 10
+                document.querySelector('#playerhealth').style.width = player.health + '%'
                 console.log('Enemy is attacking')
             }
 }
