@@ -5,4 +5,6 @@ for contact add me on discord : tikchbiiila
 
 UPDATE : I start making characters mooving :D yeeeyy 
 
-Update ( 12-09-2023 ) : They are fighting ehehe, still got some problem but I will fix it later, I will add health bar later Inchaalah.
+Update (12-09-2023) : They are fighting ehehe, still got some problem but I will fix it later, I will add health bar later Inchaalah.
+
+Update (12-11-2023) : I added health bar and they re getting damaged. Next I need to add "Timer" and "Game Over"
