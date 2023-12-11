@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+.redcontainer {
+    position: relative;
+    width: min-content;
+}
+
+.smallercontainer {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+/* timer section */
+.timer {
+    background-color: rgb(255, 25, 0);
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+/* Player Section */
+
+.playerbar{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.playerhealth {
+    background-color: rgb(228, 177, 67);
+    height: 35px;
+    width: 100%;
+    
+}
+.playerrest{
+    position: absolute;
+    background: blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Enemy  section */
+.enemybar{
+    position: relative;
+    height: 35px;
+    width: 100%;
+}
+.enemyhealth {
+    background-color: rgb(228, 177, 67);
+    height: 35px;
+    
+}
+.enemyrest{
+    position: absolute;
+    background: blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
