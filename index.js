@@ -9,7 +9,7 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.65
 
 class Sprite {
-    constructor({position, velocity, offset}) {
+    constructor({ position, velocity, offset }) {
         this.position = position
         this.velocity = velocity
         this.width = 50
@@ -18,7 +18,7 @@ class Sprite {
             position: {
                 x: this.position.x,
                 y: this.position.y
-            } ,
+            },
             offset,
             width: 100,
             height: 50
@@ -35,36 +35,36 @@ class Sprite {
         }
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
         // Atacking box 
-      if(this.isAttacking){
-        c.fillStyle = 'green'
-        c.fillRect(
-            this.atackbox.position.x,
-            this.atackbox.position.y,
-            this.atackbox.width,
-            this.atackbox.height
-        )
-     }
+        if (this.isAttacking) {
+            c.fillStyle = 'green'
+            c.fillRect(
+                this.atackbox.position.x,
+                this.atackbox.position.y,
+                this.atackbox.width,
+                this.atackbox.height
+            )
+        }
     }
 
-    
+
 
     update() {
         this.draw()
-        this.atackbox.position.x =this.position.x + this.atackbox.offset.x
-        this.atackbox.position.y =this.position.y
+        this.atackbox.position.x = this.position.x + this.atackbox.offset.x
+        this.atackbox.position.y = this.position.y
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
-        
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height){
+
+        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
             this.velocity.y = 0
         } else this.velocity.y += gravity
     }
 
     attack() {
         this.isAttacking = true
-        setTimeout(() =>{
+        setTimeout(() => {
             this.isAttacking = false
         }, 100)
     }
@@ -72,44 +72,44 @@ class Sprite {
 }
 
 const player = new Sprite({
-    position:{
-    x: 0,
-    y: 0
-},
-velocity:{
-    x: 0, 
-    y: 0
-},
-offset: {
-    x: 0,
-    y: 0
-}
+    position: {
+        x: 0,
+        y: 0
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    },
+    offset: {
+        x: 0,
+        y: 0
+    }
 })
 
 
 const chirir = new Sprite({
-    position:{
-    x: 400,
-    y: 100
-},
-velocity:{
-    x: 0, 
-    y: 0 
-},
-offset: {
-    x: -50,
-    y: 0
-}
+    position: {
+        x: 400,
+        y: 100
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    },
+    offset: {
+        x: -50,
+        y: 0
+    }
 })
 
 console.log([player])
 
 const keys = {
-    a : {
-        pressed : false
+    a: {
+        pressed: false
     },
-    d : {
-        pressed : false
+    d: {
+        pressed: false
     },
 
     ArrowLeft: { pressed: false },
@@ -119,15 +119,33 @@ const keys = {
 
 let lastkey
 
-function rectangularCollision ({ rectangle1, rectangle2}) {
+function rectangularCollision({ rectangle1, rectangle2 }) {
     return (
-        rectangle1.atackbox.position.x + rectangle1.atackbox.width >= rectangle2.position.x && 
-        rectangle1.atackbox.position.x <= rectangle2.position.x + rectangle2.width && 
-        rectangle1.atackbox.position.y + rectangle1.atackbox.height >= rectangle2.position.y && 
+        rectangle1.atackbox.position.x + rectangle1.atackbox.width >= rectangle2.position.x &&
+        rectangle1.atackbox.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.atackbox.position.y + rectangle1.atackbox.height >= rectangle2.position.y &&
         rectangle1.atackbox.position.y <= rectangle2.position.y + rectangle2.height
     );
-    
-} 
+
+}
+
+let timer = 5
+function DecreaseTimer() {
+    if (timer > 0) {
+        setTimeout(DecreaseTimer, 1000)
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if (timer === 0) {
+        if (player.health === enemy.health) {
+            document.querySelector('#DisplayEnd').innerHTML = 'Tie'
+            document.querySelector('#DisplayEnd').style.display = 'flex'
+
+        }
+    }
+}
+
+DecreaseTimer()
 
 function Animation() {
     window.requestAnimationFrame(Animation)
@@ -138,7 +156,7 @@ function Animation() {
 
     player.velocity.x = 0
     chirir.velocity.x = 0
-    
+
 
     // player mvt
     if (keys.a.pressed && lastkey === 'a') {
@@ -157,26 +175,26 @@ function Animation() {
 
     // coliision detection 
     if (rectangularCollision({
-        rectangle1 : player,
-        rectangle2 : chirir
+        rectangle1: player,
+        rectangle2: chirir
     })
-        && player.isAttacking ) {
-            player.isAttacking = false
-            chirir.health -= 10
-            document.querySelector('#enemyhealth').style.width = chirir.health + '%'
-            console.log('Player is attacking')
-        }
+        && player.isAttacking) {
+        player.isAttacking = false
+        chirir.health -= 10
+        document.querySelector('#enemyhealth').style.width = chirir.health + '%'
+        console.log('Player is attacking')
+    }
 
-        if (rectangularCollision({
-            rectangle1 : chirir,
-            rectangle2 : player
-        })
-            && chirir.isAttacking ) {
-                chirir.isAttacking = false
-                player.health -= 10
-                document.querySelector('#playerhealth').style.width = player.health + '%'
-                console.log('Enemy is attacking')
-            }
+    if (rectangularCollision({
+        rectangle1: chirir,
+        rectangle2: player
+    })
+        && chirir.isAttacking) {
+        chirir.isAttacking = false
+        player.health -= 10
+        document.querySelector('#playerhealth').style.width = player.health + '%'
+        console.log('Enemy is attacking')
+    }
 }
 
 
@@ -184,33 +202,33 @@ Animation()
 
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
-        case 'd' :
+        case 'd':
             keys.d.pressed = true
             lastkey = 'd'
             break
-        case 'a' :
+        case 'a':
             keys.a.pressed = true
             lastkey = 'a'
             break
-        case 'w' :
+        case 'w':
             player.velocity.y = -20
             break
-        case 'f' :
+        case 'f':
             player.attack()
             break
-        
-        case 'ArrowRight' :
+
+        case 'ArrowRight':
             keys.ArrowRight.pressed = true
             chirir.lastkey = 'ArrowRight'
             break
-        case 'ArrowLeft' :
+        case 'ArrowLeft':
             keys.ArrowLeft.pressed = true
             chirir.lastkey = 'ArrowLeft'
             break
-        case 'ArrowUp' :
+        case 'ArrowUp':
             chirir.velocity.y = -20
             break
-        case 'l' :
+        case 'l':
             chirir.attack()
             break
 
@@ -219,20 +237,20 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('keyup', (event) => {
     switch (event.key) {
-        case 'd' :
+        case 'd':
             keys.d.pressed = false
             break
-        case 'a' :
+        case 'a':
             keys.a.pressed = false
             break
     }
 
     //chirir keys hehe
     switch (event.key) {
-        case 'ArrowRight' :
+        case 'ArrowRight':
             keys.ArrowRight.pressed = false
             break
-        case 'ArrowLeft' :
+        case 'ArrowLeft':
             keys.ArrowLeft.pressed = false
             break
     }
