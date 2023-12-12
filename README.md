@@ -8,3 +8,8 @@ UPDATE : I start making characters mooving :D yeeeyy
 Update (12-09-2023) : They are fighting ehehe, still got some problem but I will fix it later, I will add health bar later Inchaalah.
 
 Update (12-11-2023) : I added health bar and they re getting damaged. Next I need to add "Timer" and "Game Over"
+
+Update (12-12-2023) : I have a problem that when the timer goes to 0 the display not changing to flex so it shows tie when both enemy and player are full hp.
+                      - I tried to rename it and use style on html 
+                      - I tried to change the style type from class '.' to id "#" nothing work sadly 
+                      
