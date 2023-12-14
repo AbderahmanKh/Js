@@ -12,4 +12,5 @@ Update (12-11-2023) : I added health bar and they re getting damaged. Next I nee
 Update (12-12-2023) : I have a problem that when the timer goes to 0 the display not changing to flex so it shows tie when both enemy and player are full hp.
                       - I tried to rename it and use style on html 
                       - I tried to change the style type from class '.' to id "#" nothing work sadly 
-                      
+  
+Update (12-14-2023) : I fixed the issue, and I added GameOver. Next goal is adding new animations style and background Sprite
