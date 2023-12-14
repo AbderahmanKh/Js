@@ -25,7 +25,7 @@
     justify-content: center;
 }
 /* Game Over */
-#DisplayEnd {
+.DisplayEnd {
     position: absolute;
     color: white;
     align-items: center;
@@ -34,6 +34,7 @@
     right: 0;
     left: 0;
     bottom: 0;
+    display: flex;
 }
 
 /* Player Section */
