@@ -129,19 +129,29 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 
 }
 
-let timer = 5
+function Winner({player, chirir, TimerId}) {
+    clearTimeout(TimerId)
+    document.querySelector('#DisplayEnd').style.display = 'flex'
+    if (player.health === chirir.health) {
+        document.querySelector('#DisplayEnd').innerHTML = 'Ta3adol'
+    } else if (player.health > chirir.health) {
+        document.querySelector('#DisplayEnd').innerHTML = 'Wa rbe7 la3ib 1'
+    }else if (player.health < chirir.health) {
+        document.querySelector('#DisplayEnd').innerHTML = 'Wa rbe7 la3ib 2'
+    }
+}
+
+let timer = 60
+let TimerId
 function DecreaseTimer() {
     if (timer > 0) {
-        setTimeout(DecreaseTimer, 1000)
+        TimerId = setTimeout(DecreaseTimer, 1000)
         timer--
         document.querySelector('#timer').innerHTML = timer
     }
     if (timer === 0) {
-        if (player.health === enemy.health) {
-            document.querySelector('#DisplayEnd').innerHTML = 'Tie'
-            document.querySelector('#DisplayEnd').style.display = 'flex'
-
-        }
+        
+        Winner({player, chirir, TimerId})
     }
 }
 
@@ -194,6 +204,12 @@ function Animation() {
         player.health -= 10
         document.querySelector('#playerhealth').style.width = player.health + '%'
         console.log('Enemy is attacking')
+    }
+
+    // end game by health
+
+    if (chirir.health <= 0 || player.health <= 0) {
+        Winner({player, chirir, TimerId})
     }
 }
 
